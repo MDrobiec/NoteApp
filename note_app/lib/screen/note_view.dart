@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/bloc/note_view_bloc.dart';
+import 'package:note_app/screen/error_view.dart';
+import 'package:note_app/screen/loading_view.dart';
 
 class NoteView extends StatefulWidget {
   const NoteView({Key? key}) : super(key: key);
@@ -27,10 +29,14 @@ class _NoteView extends State<NoteView> {
           child: BlocBuilder<NoteViewBloc, NoteViewState>(
             builder: (context, state) {
               if (state is NoteViewInitial) {
+                return const LoadingView();
               } else if (state is NoteViewLoading) {
+                return const LoadingView();
               } else if (state is NoteViewLoaded) {
                 return buildView();
-              } else if (state is NoteViewError) {}
+              } else if (state is NoteViewError) {
+                return ErrorView(nameError: state.errorName);
+              }
               return Container();
             },
           ),

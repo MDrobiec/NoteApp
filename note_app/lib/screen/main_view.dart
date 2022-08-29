@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/bloc/main_view_bloc.dart';
+import 'package:note_app/screen/error_view.dart';
+import 'package:note_app/screen/loading_view.dart';
 
 class MainView extends StatefulWidget {
   const MainView({Key? key}) : super(key: key);
@@ -28,10 +30,14 @@ class _MainView extends State<MainView> {
           child: BlocBuilder<MainViewBloc, MainViewState>(
             builder: (context, state) {
               if (state is MainViewInitial) {
+                return const LoadingView();
               } else if (state is MainViewLoading) {
+                return const LoadingView();
               } else if (state is MainViewLoaded) {
                 return buildView();
-              } else if (state is MainViewError) {}
+              } else if (state is MainViewError) {
+                return ErrorView(nameError: state.errorName);
+              }
               return Container();
             },
           ),

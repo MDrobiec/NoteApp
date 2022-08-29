@@ -26,7 +26,9 @@ class MainViewLoaded extends MainViewState {
 }
 
 class MainViewError extends MainViewState {
-  const MainViewError();
+  const MainViewError(this.errorName);
+  final String errorName;
+
   @override
   List<Object> get props => [];
 }

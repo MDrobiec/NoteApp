@@ -11,7 +11,7 @@ class NoteViewBloc extends Bloc<NoteViewEvent, NoteViewState> {
         emit(const NoteViewLoading());
         emit(const NoteViewLoaded());
       } catch (error) {
-        emit(const NoteViewError());
+        emit(NoteViewError(error.toString()));
       }
     });
   }

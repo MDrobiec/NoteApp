@@ -26,7 +26,8 @@ class NoteViewLoaded extends NoteViewState {
 }
 
 class NoteViewError extends NoteViewState {
-  const NoteViewError();
+  const NoteViewError(this.errorName);
+  final String errorName;
   @override
   List<Object> get props => [];
 }

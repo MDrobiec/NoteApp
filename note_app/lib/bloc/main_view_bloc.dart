@@ -11,7 +11,7 @@ class MainViewBloc extends Bloc<MainViewEvent, MainViewState> {
         emit(const MainViewLoading());
         emit(const MainViewLoaded());
       } catch (error) {
-        emit(const MainViewError());
+        emit(MainViewError(error.toString()));
       }
     });
   }
