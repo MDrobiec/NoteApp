@@ -23,6 +23,11 @@ class _MainView extends State<MainView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+          child: const Icon(Icons.add_circle),
+          onPressed: () {
+            mainViewBloc.add(NavToNoteView(context));
+          }),
       body: BlocProvider(
         create: (_) => mainViewBloc,
         child: BlocListener<MainViewBloc, MainViewState>(

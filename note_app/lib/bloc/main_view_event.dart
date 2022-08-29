@@ -11,3 +11,10 @@ class LoadMainView extends MainViewEvent {
   @override
   List<Object> get props => [];
 }
+
+class NavToNoteView extends MainViewEvent {
+  const NavToNoteView(this.context);
+  final BuildContext context;
+  @override
+  List<Object> get props => [];
+}
