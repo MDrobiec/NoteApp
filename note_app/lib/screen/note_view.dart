@@ -46,6 +46,8 @@ class _NoteView extends State<NoteView> {
   }
 
   Widget buildView() => SingleChildScrollView(
-        child: Container(),
+        child: Column(
+          children: const [Text('Dodaj nowa notatke')],
+        ),
       );
 }

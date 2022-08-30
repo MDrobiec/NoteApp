@@ -20,7 +20,9 @@ class MainViewLoading extends MainViewState {
 }
 
 class MainViewLoaded extends MainViewState {
-  const MainViewLoaded();
+  final List listNote;
+
+  const MainViewLoaded(this.listNote);
   @override
   List<Object> get props => [];
 }
