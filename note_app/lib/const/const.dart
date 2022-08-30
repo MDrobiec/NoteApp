@@ -1,8 +1,10 @@
+import 'dart:ui';
+
 const String databaseName = 'dbNote.db';
 const String databaseTableName = 'note';
 const String scriptGenerateNoteTable = '''
 create table note (
-  note_id INTEGER PRIMAY KEY,
+  note_id integer primary key autoincrement,
   note_name TEXT,
   topic_note_name TEXT,
   note_date DATETIME,
@@ -10,3 +12,5 @@ create table note (
   state INT
   )
   ''';
+
+const Color colorAppBar = Color(0xFFE97B40);

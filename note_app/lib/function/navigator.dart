@@ -3,7 +3,7 @@ import 'package:note_app/screen/note_view.dart';
 
 class NavigatorFunction {
   static void navigator(context, name) {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const NoteView()));
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => NoteView()));
   }
 }

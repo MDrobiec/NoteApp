@@ -33,5 +33,22 @@ class MainViewBloc extends Bloc<MainViewEvent, MainViewState> {
         emit(MainViewError(error.toString()));
       }
     }));
+    on<ArchiveNote>(((event, emit) async {
+      try {
+        List listNote;
+        emit(const MainViewLoading());
+        await DBRequest().updateNote(event.id);
+        final responseApp = await DBRequest().getAllNotes();
+        emit(const MainViewLoadedNav());
+        if (responseApp.isEmpty) {
+          listNote = [];
+        } else {
+          listNote = responseApp;
+        }
+        emit(MainViewLoaded(listNote));
+      } catch (error) {
+        emit(MainViewError(error.toString()));
+      }
+    }));
   }
 }

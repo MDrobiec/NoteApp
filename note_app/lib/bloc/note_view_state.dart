@@ -20,7 +20,14 @@ class NoteViewLoading extends NoteViewState {
 }
 
 class NoteViewLoaded extends NoteViewState {
-  const NoteViewLoaded();
+  final String state;
+  final int stateid;
+  final String date;
+  final String name;
+  final String context;
+  final int id;
+  const NoteViewLoaded(
+      this.state, this.date, this.stateid, this.name, this.context, this.id);
   @override
   List<Object> get props => [];
 }

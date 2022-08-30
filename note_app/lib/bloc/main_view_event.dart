@@ -18,3 +18,11 @@ class NavToNoteView extends MainViewEvent {
   @override
   List<Object> get props => [];
 }
+
+class ArchiveNote extends MainViewEvent {
+  const ArchiveNote(this.context, this.id);
+  final BuildContext context;
+  final int id;
+  @override
+  List<Object> get props => [];
+}
