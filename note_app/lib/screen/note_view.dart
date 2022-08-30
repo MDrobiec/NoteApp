@@ -22,6 +22,9 @@ class _NoteView extends State<NoteView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Details notes'),
+      ),
       body: BlocProvider(
         create: (_) => noteViewBloc,
         child: BlocListener<NoteViewBloc, NoteViewState>(
@@ -46,8 +49,14 @@ class _NoteView extends State<NoteView> {
   }
 
   Widget buildView() => SingleChildScrollView(
+          child: Container(
+        padding: const EdgeInsets.all(20),
         child: Column(
-          children: const [Text('Dodaj nowa notatke')],
+          children: const [
+            SizedBox(
+              height: 20,
+            ),
+          ],
         ),
-      );
+      ));
 }

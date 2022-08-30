@@ -24,6 +24,9 @@ class _MainView extends State<MainView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Note list'),
+      ),
       floatingActionButton: FloatingActionButton(
           child: const Icon(Icons.add_circle),
           onPressed: () {
@@ -41,6 +44,8 @@ class _MainView extends State<MainView> {
                 return const LoadingView();
               } else if (state is MainViewLoaded) {
                 return buildView(state.listNote);
+              } else if (state is MainViewLoadedNav) {
+                return buildView([]);
               } else if (state is MainViewError) {
                 return ErrorView(nameError: state.errorName);
               }
@@ -53,6 +58,9 @@ class _MainView extends State<MainView> {
   }
 
   Widget buildView(List listNote) => SingleChildScrollView(
+          child: Container(
+        height: 500,
+        padding: const EdgeInsets.all(20),
         child: RawScrollbar(
             child: RefreshIndicator(
           onRefresh: () async {
@@ -78,5 +86,5 @@ class _MainView extends State<MainView> {
                 );
               })),
         )),
-      );
+      ));
 }

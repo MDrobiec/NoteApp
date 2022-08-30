@@ -28,6 +28,7 @@ class MainViewBloc extends Bloc<MainViewEvent, MainViewState> {
       try {
         emit(const MainViewLoading());
         NavigatorFunction.navigator(event.context, '');
+        emit(const MainViewLoadedNav());
       } catch (error) {
         emit(MainViewError(error.toString()));
       }
