@@ -1,6 +1,6 @@
 import 'package:path/path.dart' as p;
 
-import 'package:note_app/const/const.dart';
+import 'package:note_app/const/db_const.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DatabaseHelper {

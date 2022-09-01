@@ -1,16 +1,9 @@
 import 'dart:ui';
 
-const String databaseName = 'dbNote.db';
-const String databaseTableName = 'note';
-const String scriptGenerateNoteTable = '''
-create table note (
-  note_id integer primary key autoincrement,
-  note_name TEXT,
-  topic_note_name TEXT,
-  note_date DATETIME,
-  contents TEXT,
-  state INT
-  )
-  ''';
-
 const Color colorAppBar = Color(0xFFE97B40);
+const double margin = 20;
+const double sizedMargin = 10;
+const double heihtViewNoteEdit = 500;
+const double heihtViewNotMain = 700;
+
+const String formatDate = 'yyyy-MM-dd  HH:mm';

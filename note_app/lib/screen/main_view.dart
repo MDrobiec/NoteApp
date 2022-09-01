@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/bloc/main_view_bloc.dart';
 import 'package:note_app/const/const.dart';
+import 'package:note_app/function/getDate.dart';
+import 'package:note_app/function/menuItemGenerator.dart';
 import 'package:note_app/model/notes.dart';
 import 'package:note_app/screen/error_view.dart';
 import 'package:note_app/screen/loading_view.dart';
@@ -21,30 +23,12 @@ class _MainView extends State<MainView> {
   Color _colors = Colors.red;
   DateTime date = DateTime.now();
   bool stat = false;
-  int state0 = 0;
-  int state1 = 1;
-
-  int state2 = 2;
-
-  Future<void> selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-        context: context,
-        initialDate: date,
-        firstDate: DateTime(2015, 8),
-        lastDate: DateTime(2101));
-    if (picked != null && picked != date) {
-      setState(() {
-        date = picked;
-        mainViewBloc.add(LoadMainView(
-            date.toString().substring(0, 10), state0, state1, state2));
-      });
-    }
-  }
+  List menuBuilder = [0, 1, 2];
 
   @override
   void initState() {
-    mainViewBloc.add(
-        LoadMainView(date.toString().substring(0, 10), state0, state1, state2));
+    mainViewBloc.add(LoadMainView(date.toString().substring(0, 10),
+        menuBuilder[0], menuBuilder[1], menuBuilder[2]));
     super.initState();
   }
 
@@ -57,47 +41,44 @@ class _MainView extends State<MainView> {
         actions: [
           IconButton(
               onPressed: () async {
-                selectDate(context);
+                date = await GetDate().selectDate(context, date);
+                mainViewBloc.add(LoadMainView(date.toString().substring(0, 10),
+                    menuBuilder[0], menuBuilder[1], menuBuilder[2]));
               },
               icon: const Icon(Icons.date_range)),
           PopupMenuButton(
               onSelected: (value) {
                 if (value == MenuItem.item1) {
-                  state0 = 0;
-                  state1 = 0;
-                  state2 = 0;
+                  menuBuilder = MenuItemGenerator().menuGenerator(0);
                   mainViewBloc.add(LoadMainView(
                       date.toString().substring(0, 10),
-                      state0,
-                      state1,
-                      state2));
+                      menuBuilder[0],
+                      menuBuilder[1],
+                      menuBuilder[2]));
                 } else if (value == MenuItem.item2) {
-                  state0 = 1;
-                  state1 = 1;
-                  state2 = 1;
+                  menuBuilder = MenuItemGenerator().menuGenerator(1);
+
                   mainViewBloc.add(LoadMainView(
                       date.toString().substring(0, 10),
-                      state0,
-                      state1,
-                      state2));
+                      menuBuilder[0],
+                      menuBuilder[1],
+                      menuBuilder[2]));
                 } else if (value == MenuItem.item3) {
-                  state0 = 2;
-                  state1 = 2;
-                  state2 = 2;
+                  menuBuilder = MenuItemGenerator().menuGenerator(2);
+
                   mainViewBloc.add(LoadMainView(
                       date.toString().substring(0, 10),
-                      state0,
-                      state1,
-                      state2));
+                      menuBuilder[0],
+                      menuBuilder[1],
+                      menuBuilder[2]));
                 } else if (value == MenuItem.item4) {
-                  state0 = 0;
-                  state1 = 1;
-                  state2 = 2;
+                  menuBuilder = MenuItemGenerator().menuGenerator(3);
+
                   mainViewBloc.add(LoadMainView(
                       date.toString().substring(0, 10),
-                      state0,
-                      state1,
-                      state2));
+                      menuBuilder[0],
+                      menuBuilder[1],
+                      menuBuilder[2]));
                 }
               },
               itemBuilder: ((context) => [
@@ -193,9 +174,9 @@ class _MainView extends State<MainView> {
                         stat = false;
                         mainViewBloc.add(LoadMainView(
                             date.toString().substring(0, 10),
-                            state0,
-                            state1,
-                            state2));
+                            menuBuilder[0],
+                            menuBuilder[1],
+                            menuBuilder[2]));
                       });
                     }
                   }
@@ -210,13 +191,13 @@ class _MainView extends State<MainView> {
             ),
           ),
           Container(
-            height: 700,
-            padding: const EdgeInsets.only(top: 20),
+            height: heihtViewNotMain,
+            padding: const EdgeInsets.only(top: margin),
             child: RawScrollbar(
                 child: RefreshIndicator(
               onRefresh: () async {
-                mainViewBloc.add(LoadMainView(
-                    date.toString().substring(0, 10), state0, state1, state2));
+                mainViewBloc.add(LoadMainView(date.toString().substring(0, 10),
+                    menuBuilder[0], menuBuilder[1], menuBuilder[2]));
               },
               child: ListView.builder(
                   itemCount: listNote.length,
@@ -249,7 +230,7 @@ class _MainView extends State<MainView> {
                                               BorderRadius.circular(10))),
                                   child: Column(children: [
                                     const SizedBox(
-                                      height: 10,
+                                      height: sizedMargin,
                                     ),
                                     Row(
                                       children: [
@@ -289,15 +270,18 @@ class _MainView extends State<MainView> {
                                                                 Navigator.of(
                                                                         cts)
                                                                     .pop();
-                                                                mainViewBloc.add(
-                                                                    ArchiveNote(
-                                                                        context,
-                                                                        modelNotes
-                                                                            .id!,
-                                                                        date.toString(),
-                                                                        state0,
-                                                                        state1,
-                                                                        state2));
+                                                                mainViewBloc.add(ArchiveNote(
+                                                                    context,
+                                                                    modelNotes
+                                                                        .id!,
+                                                                    date
+                                                                        .toString(),
+                                                                    menuBuilder[
+                                                                        0],
+                                                                    menuBuilder[
+                                                                        1],
+                                                                    menuBuilder[
+                                                                        2]));
                                                               },
                                                               child: const Text(
                                                                   'Yes')),

@@ -12,39 +12,28 @@ part 'note_view_state.dart';
 class NoteViewBloc extends Bloc<NoteViewEvent, NoteViewState> {
   NoteViewBloc() : super(const NoteViewInitial()) {
     on<LoadNoteView>((event, emit) async {
-      DateTime now = DateTime.now();
       String stateName = '';
       int stateid = 0;
-      String datedd = '';
-      String name = '';
-      String context = '';
       int id = 0;
-      var date = DateFormat('yyyy-MM-dd  HH:mm').format(now);
       final response = await DBRequest().getOneNotes(event.id);
       if (response.isEmpty) {
-        stateName = 'Brak notatki';
-        stateid = 0;
-        datedd = date;
       } else {
         ModelNotes modelNotes = response[0];
-        stateid = modelNotes.state;
-        datedd = modelNotes.noteDate;
-        name = modelNotes.noteName;
-        context = modelNotes.contents;
         id = modelNotes.id!;
-        if (stateid == 0) {
+        if (modelNotes.state == 0) {
           stateName = 'Notatka w edycji';
-        } else if (stateid == 1) {
+        } else if (modelNotes.state == 1) {
           stateName = 'Notatka zaakceptowana';
-        } else if (stateid == 2) {
+        } else if (modelNotes.state == 2) {
           stateName = 'Notatka archiwalna';
         }
-      }
-      try {
-        emit(const NoteViewLoading());
-        emit(NoteViewLoaded(stateName, datedd, stateid, name, context, id));
-      } catch (error) {
-        emit(NoteViewError(error.toString()));
+        try {
+          emit(const NoteViewLoading());
+          emit(NoteViewLoaded(stateName, modelNotes.noteDate, stateid,
+              modelNotes.noteName, modelNotes.contents, id));
+        } catch (error) {
+          emit(NoteViewError(error.toString()));
+        }
       }
     });
     on<SaveNewNote>((event, emit) async {
@@ -59,7 +48,7 @@ class NoteViewBloc extends Bloc<NoteViewEvent, NoteViewState> {
               noteDate: event.noteDate,
               contents: event.contents,
               state: 0));
-          await DBRequest().insertNote(modelNotes);
+          await DBRequest().insertNotes(modelNotes);
           Navigator.pushReplacement(event.context,
               MaterialPageRoute(builder: (context) => const MainView()));
         } else if (event.state == 0) {

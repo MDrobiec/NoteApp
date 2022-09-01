@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:note_app/const/const.dart';
 
 class LoadingView extends StatefulWidget {
   const LoadingView({Key? key}) : super(key: key);
@@ -16,9 +17,9 @@ class _ErrorView extends State<LoadingView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(children: [
-        const SizedBox(
-          height: 20,
+      body: Column(children: const [
+        SizedBox(
+          height: margin,
         ),
         SizedBox(
           child: CircularProgressIndicator(),

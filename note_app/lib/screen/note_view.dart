@@ -94,8 +94,8 @@ class _NoteView extends State<NoteView> {
   Widget buildView(state, date, stateDesc, name, context) =>
       SingleChildScrollView(
           child: Container(
-        height: 500,
-        padding: const EdgeInsets.all(20),
+        height: heihtViewNotMain,
+        padding: const EdgeInsets.all(margin),
         child: Column(
           children: [
             Form(

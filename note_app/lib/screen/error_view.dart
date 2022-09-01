@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:note_app/const/const.dart';
 
 class ErrorView extends StatefulWidget {
   final String nameError;
@@ -19,7 +20,7 @@ class _ErrorView extends State<ErrorView> {
     return Scaffold(
       body: Column(children: [
         const SizedBox(
-          height: 20,
+          height: margin,
         ),
         SizedBox(
           child: Text(widget.nameError),

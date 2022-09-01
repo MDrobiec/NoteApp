@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:note_app/const/const.dart';
+import 'package:note_app/const/db_const.dart';
 import 'package:note_app/db/db_init.dart';
 import 'package:note_app/model/notes.dart';
 import 'package:sqflite/sqflite.dart';
@@ -48,7 +48,7 @@ class DBRequest {
     return row;
   }
 
-  Future<List<ModelNotes>> insertNote(List<ModelNotes> noteList) async {
+  Future<List<ModelNotes>> insertNotes(List<ModelNotes> noteList) async {
     final Database database = await databaseFuture;
     Batch batch = database.batch();
     try {
@@ -62,12 +62,6 @@ class DBRequest {
         print(error);
       }
     }
-    return [];
-  }
-
-  Future<List<ModelNotes>> getFilterNote() async {
-    late final List<ModelNotes> noteList;
-    final Database database = await databaseFuture;
     return [];
   }
 }
