@@ -7,11 +7,13 @@ import 'package:sqflite/sqflite.dart';
 class DBRequest {
   var databaseFuture = DatabaseHelper.db.database;
 
-  Future<List<ModelNotes>> getAllNotes() async {
+  Future<List<ModelNotes>> getAllNotes(date, state1, state2, state0) async {
     late final List<ModelNotes> noteList;
     final Database database = await databaseFuture;
     final noteMap = await database.query(
       databaseTableName,
+      where: "DATE(note_date) = ? and state in (?,?,?)",
+      whereArgs: [date, state1, state2, state0],
       orderBy: "note_id DESC",
     );
     noteList = noteMap.map((list) => ModelNotes.fromJson(list)).toList();

@@ -13,7 +13,8 @@ class MainViewBloc extends Bloc<MainViewEvent, MainViewState> {
       try {
         emit(const MainViewLoading());
         List listNote;
-        final response = await DBRequest().getAllNotes();
+        final response = await DBRequest()
+            .getAllNotes(event.date, event.state0, event.state1, event.state2);
         if (response.isEmpty) {
           listNote = [];
         } else {
@@ -38,7 +39,8 @@ class MainViewBloc extends Bloc<MainViewEvent, MainViewState> {
         List listNote;
         emit(const MainViewLoading());
         await DBRequest().updateNote(event.id);
-        final responseApp = await DBRequest().getAllNotes();
+        final responseApp = await DBRequest()
+            .getAllNotes(event.date, event.state0, event.state1, event.state2);
         emit(const MainViewLoadedNav());
         if (responseApp.isEmpty) {
           listNote = [];
