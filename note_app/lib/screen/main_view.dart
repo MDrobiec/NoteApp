@@ -29,8 +29,12 @@ class _MainView extends State<MainView> {
       appBar: AppBar(
         title: const Text('Note list'),
         backgroundColor: colorAppBar,
+        actions: [
+          IconButton(onPressed: () async {}, icon: const Icon(Icons.date_range))
+        ],
       ),
       floatingActionButton: FloatingActionButton(
+          key: const Key('floatingActionButton'),
           backgroundColor: colorAppBar,
           child: const Icon(Icons.add_circle),
           onPressed: () {

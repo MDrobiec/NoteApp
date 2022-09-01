@@ -47,6 +47,7 @@ class _NoteView extends State<NoteView> {
               },
               icon: const Icon(Icons.save)),
           IconButton(
+              key: const Key('saveNewNote'),
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
                   noteViewBloc.add(SaveNewNote(context, noteName, topicNoteName,
@@ -102,6 +103,7 @@ class _NoteView extends State<NoteView> {
               child: Column(
                 children: [
                   TextFormField(
+                    key: const Key('noteName'),
                     readOnly: (state == 2 || state == 1) ? true : false,
                     decoration: InputDecoration(
                       icon: const Icon(Icons.title),
@@ -120,6 +122,7 @@ class _NoteView extends State<NoteView> {
                     },
                   ),
                   TextFormField(
+                    key: const Key('noteContents'),
                     minLines: 1,
                     maxLines: 5,
                     readOnly: (state == 2 || state == 1),
